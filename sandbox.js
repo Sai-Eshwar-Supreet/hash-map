@@ -31,5 +31,6 @@ console.log("Has Sita: ", map.has("Sita"));
 console.log("Length: ", map.length());
 
 console.log("Keys: ", map.keys());
+console.log("Values: ", map.values());
 
 map.clear();
