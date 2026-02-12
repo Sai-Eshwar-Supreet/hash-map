@@ -64,9 +64,13 @@ class HashMap{
         }
     }
 
-    set(key, value){
+    #getBucket(key){
         const hash = this.hash(key);
-        const bucket = this.#buckets[hash];
+        return this.#buckets[hash];
+    }
+
+    set(key, value){
+        const bucket = this.#getBucket(key);
         const index = bucket.findIndex(key, (item) => item.key);
 
         if(index !== -1){
@@ -80,12 +84,17 @@ class HashMap{
     }
 
     get(key){
-        const hash = this.hash(key);
-        const bucket = this.#buckets[hash];
+        const bucket = this.#getBucket(key);
 
         const index = bucket.findIndex(key, item => item.key);
 
         return index !== -1? bucket.at(index).value: null;
+    }
+
+    has(key){
+        const bucket = this.#getBucket(key);
+
+        return bucket.contains(key, item => item.key);
     }
 }
 

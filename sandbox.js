@@ -18,3 +18,6 @@ map.set("Carlos", "I am another new value");
 console.log("Sita: ", map.get("Sita"));
 console.log("Gara: ", map.get("Gara"));
 console.log("Carlos: ", map.get("Carlos"));
+
+console.log("Has Sita: ", map.has("Sita"));
+console.log("Has Naruto: ", map.has("Naruto"));
