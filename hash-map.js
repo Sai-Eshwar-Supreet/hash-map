@@ -96,6 +96,18 @@ class HashMap{
 
         return bucket.contains(key, item => item.key);
     }
+
+    remove(key){
+        const bucket = this.#getBucket(key);
+
+        const index = bucket.findIndex(key, item => item.key);
+
+        if(index === -1) return false;
+
+        bucket.removeAt(index);
+
+        return true;
+    }
 }
 
 export { HashMap }

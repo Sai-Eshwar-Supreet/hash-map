@@ -21,3 +21,9 @@ console.log("Carlos: ", map.get("Carlos"));
 
 console.log("Has Sita: ", map.has("Sita"));
 console.log("Has Naruto: ", map.has("Naruto"));
+
+map.remove("Sita");
+console.log("Has Sita: ", map.has("Sita"));
+
+map.set("Sita", "New Sita entry");
+console.log("Has Sita: ", map.has("Sita"));
