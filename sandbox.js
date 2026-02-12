@@ -28,6 +28,8 @@ console.log("Has Sita: ", map.has("Sita"));
 map.set("Sita", "New Sita entry");
 console.log("Has Sita: ", map.has("Sita"));
 
-console.log("Length: ", map.length())
+console.log("Length: ", map.length());
+
+console.log("Keys: ", map.keys());
 
 map.clear();

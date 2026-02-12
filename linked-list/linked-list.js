@@ -216,6 +216,19 @@ class LinkedList{
         this.#headNode = this.#tailNode = null;
         this.#length = 0;
     }
+
+    toArray(predicate = (item) => item){
+        let temp = this.#headNode;
+
+        const arr = [];
+
+        while(temp !== null){
+            arr.push(predicate(temp.value));
+            temp = temp.nextNode;
+        }
+        
+        return arr;
+    }
 }
 
 export { LinkedList }

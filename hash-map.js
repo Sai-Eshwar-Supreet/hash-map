@@ -117,11 +117,20 @@ class HashMap{
     }
 
     clear(){
-        for(let i = 0; i < this.#buckets.length; i++){
-            this.#buckets[i].clear();
+        for(let bucket of this.#buckets){
+            bucket.clear();
         }
 
         this.#length = 0;
+    }
+
+    keys(){
+        const keys = [];
+        for(let bucket of this.#buckets){
+            keys.push(...bucket.toArray(item => item.key));
+        };
+
+        return keys;
     }
 }
 
