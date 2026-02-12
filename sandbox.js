@@ -14,3 +14,7 @@ map.set("Sita", "I am a woman");
 map.set("Rama", "I am Rama");
 map.set("Rama", "I am a man");
 map.set("Carlos", "I am another new value");
+
+console.log("Sita: ", map.get("Sita"));
+console.log("Gara: ", map.get("Gara"));
+console.log("Carlos: ", map.get("Carlos"));

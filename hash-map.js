@@ -66,9 +66,7 @@ class HashMap{
 
     set(key, value){
         const hash = this.hash(key);
-
         const bucket = this.#buckets[hash];
-
         const index = bucket.findIndex(key, (item) => item.key);
 
         if(index !== -1){
@@ -78,9 +76,16 @@ class HashMap{
             bucket.append({key, value});
         }
 
-        console.log(this.#buckets[hash].toString((item) => `${item.key} : ${item.value}`));
-
         this.#checkAndGrow();
+    }
+
+    get(key){
+        const hash = this.hash(key);
+        const bucket = this.#buckets[hash];
+
+        const index = bucket.findIndex(key, item => item.key);
+
+        return index !== -1? bucket.at(index).value: null;
     }
 }
 
