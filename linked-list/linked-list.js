@@ -124,6 +124,19 @@ class LinkedList{
         return -1;
     }
 
+    findWith(value, predicate = (item) => item){
+        if(!this.#headNode) return undefined;
+        
+        let temp = this.#headNode;
+
+        while(temp !== null){
+            if(predicate(temp.value) === value) return temp.value;
+            temp = temp.nextNode;
+        }
+
+        return undefined;
+    }
+
     toString(predicate = (item) => item){
         if(!this.#headNode) return '';
 

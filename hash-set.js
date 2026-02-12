@@ -13,14 +13,18 @@ class HashSet{
 
     #initialize(){
         this.#buckets = [];
+        this.#length = 0;
         for(let i = 0; i < this.#capacity; i++){
             this.#buckets[i] = new LinkedList();
         }
-
-        console.log(`Initalized with capacity: ${this.#capacity}`);
     }
 
     hash(key){
+
+        if(typeof key !== 'string'){
+            throw TypeError("Expects key of type string");
+        }
+
         let hashCode = 0;
         const primeNumber = 31;
 
@@ -34,11 +38,7 @@ class HashSet{
     }
 
     #isExpansionNeeded(){
-        const totalEntries = this.#buckets.reduce((prev, cur) => {
-            return prev + cur.size();
-        }, 0);
-
-        const loadFactor =  totalEntries / this.#capacity;
+        const loadFactor =  this.#length / this.#capacity;
 
         return loadFactor > this.#loadFactor;
     }
@@ -52,7 +52,7 @@ class HashSet{
 
             while(oldBucket.size() !== 0){
                 const entry = oldBucket.pop();
-                this.set(entry);
+                this.#setInternal(entry);
             }
         }
     }
@@ -68,7 +68,7 @@ class HashSet{
         return this.#buckets[hash];
     }
 
-    set(key){
+    #setInternal(key){
         const bucket = this.#getBucket(key);
 
         if(bucket.contains(key)) return;
@@ -76,6 +76,11 @@ class HashSet{
             bucket.append(key);
             this.#length++;
         }
+    }
+
+    set(key){
+        
+        this.#setInternal(key);
 
         this.#checkAndGrow();
     }

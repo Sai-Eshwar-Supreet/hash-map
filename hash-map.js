@@ -13,14 +13,17 @@ class HashMap{
 
     #initialize(){
         this.#buckets = [];
+        this.#length = 0;
         for(let i = 0; i < this.#capacity; i++){
             this.#buckets[i] = new LinkedList();
         }
-
-        console.log(`Initalized with capacity: ${this.#capacity}`);
     }
 
     hash(key){
+        if(typeof key !== 'string'){
+            throw TypeError("Expects key of type string");
+        }
+
         let hashCode = 0;
         const primeNumber = 31;
 
@@ -34,11 +37,7 @@ class HashMap{
     }
 
     #isExpansionNeeded(){
-        const totalEntries = this.#buckets.reduce((prev, cur) => {
-            return prev + cur.size();
-        }, 0);
-
-        const loadFactor =  totalEntries / this.#capacity;
+        const loadFactor =  this.#length / this.#capacity;
 
         return loadFactor > this.#loadFactor;
     }
@@ -54,7 +53,7 @@ class HashMap{
             while(bucket.size() !== 0){
                 const entry = bucket.pop();
 
-                this.set(entry.key, entry.value);
+                this.#setInternal(entry.key, entry.value);
             }
         }
     }
@@ -70,27 +69,31 @@ class HashMap{
         return this.#buckets[hash];
     }
 
-    set(key, value){
+    #setInternal(key, value){
         const bucket = this.#getBucket(key);
-        const index = bucket.findIndex(key, (item) => item.key);
 
-        if(index !== -1){
-            bucket.updateAt(index, {key, value});
+        const entry = bucket.findWith(key, item => item.key);
+
+        if(!!entry){
+            entry.value = value;
         }
         else{
             bucket.append({key, value});
             this.#length++;
         }
+    }
 
+    set(key, value){
+        this.#setInternal(key, value);
         this.#checkAndGrow();
     }
 
     get(key){
         const bucket = this.#getBucket(key);
 
-        const index = bucket.findIndex(key, item => item.key);
+        const entry = bucket.findWith(key, item => item.key);
 
-        return index !== -1? bucket.at(index).value: null;
+        return !!entry? entry.value: null;
     }
 
     has(key){
