@@ -5,6 +5,7 @@ class HashMap{
     #loadFactor = 0.75;
     #capacity = 16;
     #buckets = [];
+    #length = 0;
 
     constructor(){
         this.#initialize();
@@ -78,6 +79,7 @@ class HashMap{
         }
         else{
             bucket.append({key, value});
+            this.#length++;
         }
 
         this.#checkAndGrow();
@@ -105,8 +107,13 @@ class HashMap{
         if(index === -1) return false;
 
         bucket.removeAt(index);
+        this.#length--;
 
         return true;
+    }
+
+    length(){
+        return this.#length;
     }
 }
 
