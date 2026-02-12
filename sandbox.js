@@ -7,4 +7,10 @@ console.log("The prototype object: ", Object.getPrototypeOf(map));
 
 // Test the hash map here
 
-console.log("Hash Code: ", map.hash("Sai"));
+map.set("Carlos", "I am the old value");
+map.set("Carlos", "I am the new value");
+map.set("Sita", "I am Sita");
+map.set("Sita", "I am a woman");
+map.set("Rama", "I am Rama");
+map.set("Rama", "I am a man");
+map.set("Carlos", "I am another new value");

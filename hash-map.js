@@ -1,6 +1,23 @@
+import { LinkedList } from "./linked-list/linked-list.js";
+
+
 class HashMap{
     #loadFactor = 0.75;
     #capacity = 16;
+    #buckets = [];
+
+    constructor(){
+        this.#initialize();
+    }
+
+    #initialize(){
+        this.#buckets = [];
+        for(let i = 0; i < this.#capacity; i++){
+            this.#buckets[i] = new LinkedList();
+        }
+
+        console.log(`Initalized with capacity: ${this.#capacity}`);
+    }
 
     hash(key){
         let hashCode = 0;
@@ -13,6 +30,57 @@ class HashMap{
         }
 
         return hashCode;
+    }
+
+    #isExpansionNeeded(){
+        const totalEntries = this.#buckets.reduce((prev, cur) => {
+            return prev + cur.size();
+        }, 0);
+
+        const loadFactor =  totalEntries / this.#capacity;
+
+        return loadFactor > this.#loadFactor;
+    }
+
+    #grow(){
+        const oldBuckets = this.#buckets;
+        this.#capacity *= 2;
+        this.#initialize();
+        
+        for(let i = 0; i < oldBuckets.length; i++){
+            const bucket = oldBuckets[i];
+
+            while(bucket.size() !== 0){
+                const entry = bucket.pop();
+
+                this.set(entry.key, entry.value);
+            }
+        }
+    }
+
+    #checkAndGrow(){
+        if(this.#isExpansionNeeded()){
+            this.#grow();
+        }
+    }
+
+    set(key, value){
+        const hash = this.hash(key);
+
+        const bucket = this.#buckets[hash];
+
+        const index = bucket.findIndex(key, (item) => item.key);
+
+        if(index !== -1){
+            bucket.updateAt(index, {key, value});
+        }
+        else{
+            bucket.append({key, value});
+        }
+
+        console.log(this.#buckets[hash].toString((item) => `${item.key} : ${item.value}`));
+
+        this.#checkAndGrow();
     }
 }
 
