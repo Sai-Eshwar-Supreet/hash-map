@@ -141,6 +141,15 @@ class HashMap{
 
         return values;
     }
+
+    entries(){
+        const entries = [];
+        for(let bucket of this.#buckets){
+            entries.push(...bucket.toArray(item => [item.key, item.value]));
+        };
+
+        return entries;
+    }
 }
 
 export { HashMap }
