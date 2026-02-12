@@ -70,7 +70,6 @@ class HashSet{
 
     set(key){
         const bucket = this.#getBucket(key);
-        const index = bucket.findIndex(key);
 
         if(bucket.contains(key)) return;
         else{
