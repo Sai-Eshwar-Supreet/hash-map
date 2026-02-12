@@ -6,3 +6,5 @@ console.log("The map object: ", map);
 console.log("The prototype object: ", Object.getPrototypeOf(map));
 
 // Test the hash map here
+
+console.log("Hash Code: ", map.hash("Sai"));
