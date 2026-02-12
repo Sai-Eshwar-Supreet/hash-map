@@ -211,6 +211,11 @@ class LinkedList{
         this.#removeAfter(prevNode);
 
     }
+
+    clear(){
+        this.#headNode = this.#tailNode = null;
+        this.#length = 0;
+    }
 }
 
 export { LinkedList }

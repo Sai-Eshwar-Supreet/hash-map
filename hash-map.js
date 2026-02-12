@@ -115,6 +115,14 @@ class HashMap{
     length(){
         return this.#length;
     }
+
+    clear(){
+        for(let i = 0; i < this.#buckets.length; i++){
+            this.#buckets[i].clear();
+        }
+
+        this.#length = 0;
+    }
 }
 
 export { HashMap }
